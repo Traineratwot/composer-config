@@ -60,7 +60,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../composer-config",
-                "reference": "75eaa77cee53d3a5dde60bd9196dd37f11967300"
+                "reference": "068eca77daebab5a238966e841eb31d5b4401884"
             },
             "require": {
                 "composer-plugin-api": "^2.3",
@@ -75,7 +75,8 @@
             },
             "type": "composer-plugin",
             "extra": {
-                "class": "Traineratwot\\cc\\Plugin"
+                "class": "Traineratwot\\cc\\Plugin",
+                "plugin-modifies-install-path": true
             },
             "installation-source": "dist",
             "autoload": {

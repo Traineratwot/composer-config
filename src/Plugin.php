@@ -3,48 +3,85 @@
 	namespace Traineratwot\cc;
 
 	use Composer\Composer;
+	use Composer\EventDispatcher\Event;
+	use Composer\EventDispatcher\EventDispatcher;
 	use Composer\EventDispatcher\EventSubscriberInterface;
+	use Composer\Factory;
 	use Composer\IO\IOInterface;
+	use Composer\Json\JsonFile;
+	use Composer\Json\JsonManipulator;
 	use Composer\Plugin\PluginEvents;
 	use Composer\Plugin\PluginInterface;
+	use Composer\Util\ProcessExecutor;
+	use Exception;
 
 	class Plugin implements PluginInterface, EventSubscriberInterface
 	{
 
 
+		private AutoloadGeneratorWithConfig $autoloadGeneratorWithConfig;
+		private Composer                    $composer;
+		private IOInterface                 $io;
+
+		/**
+		 * @throws Exception
+		 */
 		public function activate(Composer $composer, IOInterface $io)
 		{
-			$autoload = $composer->getPackage()->getAutoload();
-			if (!array_key_exists('files', $autoload)) {
-				$autoload['files'] = [];
+			$this->composer                    = $composer;
+			$this->io                          = $io;
+			$package                           = $composer->getPackage();
+			$extra                             = $package->getExtra();
+			$process                           = new ProcessExecutor($io);
+			$dispatcher                        = new EventDispatcher($composer, $io, $process);
+			$this->autoloadGeneratorWithConfig = new AutoloadGeneratorWithConfig($composer, $dispatcher, $this->io);
+
+
+			if (!array_key_exists('cc', $extra)) {
+				$extra['cc'] = [];
 			}
-			$initPath = __dir__ . DIRECTORY_SEPARATOR . 'ConfigInit.php';
-			if (!array_key_exists($initPath, $autoload['files'])) {
-				array_unshift($autoload['files'], $initPath);
+			if (array_key_exists('configPath', $extra['cc'])) {
+				$this->autoloadGeneratorWithConfig->setConfigPath($extra['cc']['configPath']);
+			} else {
+				$extra['cc']['configPath'] = $io->ask("Set config path? [enter to skip]");
 			}
-			$composer->getPackage()->setAutoload($autoload);
+
+			$this->composer->setAutoloadGenerator($this->autoloadGeneratorWithConfig);
+			$this->setExtra(array_merge($extra['cc'], ["test" => 11]));
 			var_dump(__FUNCTION__);
 		}
 
-		public function deactivate(Composer $composer, IOInterface $io)
+		public
+		function setExtra($value)
+		{
+			$json        = new JsonFile(Factory::getComposerFile());
+			$manipulator = new JsonManipulator(file_get_contents($json->getPath()));
+			$manipulator->addSubNode('extra', 'cc', $value);
+			file_put_contents($json->getPath(), $manipulator->getContents());
+		}
+
+		public
+		function deactivate(Composer $composer, IOInterface $io)
 		{
 			var_dump(__FUNCTION__);
 			// TODO: Implement deactivate() method.
 		}
 
-		public function uninstall(Composer $composer, IOInterface $io)
+		public
+		function uninstall(Composer $composer, IOInterface $io)
 		{
 			var_dump(__FUNCTION__);
 			// TODO: Implement uninstall() method.
 		}
 
-		public function INIT()
+		public
+		function INIT(Event $event)
 		{
-			var_dump(__FUNCTION__);
-			// TODO: Implement uninstall() method.
+
 		}
 
-		public static function getSubscribedEvents()
+		public
+		static function getSubscribedEvents()
 		{
 			return [
 				PluginEvents::INIT => [
