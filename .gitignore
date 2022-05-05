@@ -6,3 +6,4 @@
 /test/func/vendor/
 /test/func/composer.lock
 /vendor/
+composer.phar
