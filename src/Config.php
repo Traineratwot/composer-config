@@ -6,12 +6,13 @@
 	class Config
 	{
 		/**
-		 * @param $name
-		 * @param $value
-		 * @param $namespace
-		 * @return void
+		 * @param string $name      Config key
+		 * @param mixed  $value     Config value
+		 * @param null   $namespace namespace default is project name
+		 * @param bool   $strict    disable create key without namespace
+		 * @return bool
 		 */
-		static function set($name, $value, $namespace = NULL)
+		static function set($name, $value, $namespace = NULL, $strict = FALSE)
 		{
 			if (!$namespace and defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
@@ -19,11 +20,13 @@
 			$const = self::getConstKey($name, $namespace);
 			if (!defined($const)) {
 				define($const, $value);
-				$const2 = self::getConstKey($name);
-				if (!defined($const2)) {
-					define($const2, $value);
+				if (!$strict) {
+					$const2 = self::getConstKey($name);
+					if (!defined($const2)) {
+						define($const2, $value);
+					}
 				}
-				return true;
+				return TRUE;
 			}
 			if (function_exists('runkit_constant_redefine')) {
 				runkit_constant_redefine($const, $value);
@@ -33,13 +36,13 @@
 		}
 
 		/**
-		 * @param $name
-		 * @param $namespace
+		 * @param string $name      Config key
+		 * @param null   $namespace namespace default is project name
+		 * @param null   $default   default value if key not found
+		 * @param bool   $strict    disable ignore namespace if key in namespace not found
 		 * @return mixed
-		 * @noinspection PhpDocMissingThrowsInspection
-		 * @noinspection PhpUnhandledExceptionInspection
 		 */
-		static function get($name, $namespace = NULL, $default = NULL)
+		static function get($name, $namespace = NULL, $default = NULL, $strict = FALSE)
 		{
 			if (!$namespace and defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
@@ -48,9 +51,11 @@
 			if (defined($const)) {
 				return constant($const);
 			}
-			$const = self::getConstKey($name);
-			if (defined($const)) {
-				return constant($const);
+			if (!$strict) {
+				$const = self::getConstKey($name);
+				if (defined($const)) {
+					return constant($const);
+				}
 			}
 			return $default;
 		}
