@@ -10,12 +10,13 @@
 	use Composer\IO\IOInterface;
 	use Composer\Json\JsonFile;
 	use Composer\Json\JsonManipulator;
+	use Composer\Plugin\Capable;
 	use Composer\Plugin\PluginEvents;
 	use Composer\Plugin\PluginInterface;
 	use Composer\Util\ProcessExecutor;
 	use Exception;
 
-	class Plugin implements PluginInterface, EventSubscriberInterface
+	class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 	{
 
 
@@ -48,7 +49,6 @@
 
 			$this->composer->setAutoloadGenerator($this->autoloadGeneratorWithConfig);
 			$this->setExtra(array_merge($extra['cc'], ["test" => 11]));
-			var_dump(__FUNCTION__);
 		}
 
 		public
@@ -63,15 +63,17 @@
 		public
 		function deactivate(Composer $composer, IOInterface $io)
 		{
-			var_dump(__FUNCTION__);
 			// TODO: Implement deactivate() method.
 		}
 
 		public
 		function uninstall(Composer $composer, IOInterface $io)
 		{
-			var_dump(__FUNCTION__);
-			// TODO: Implement uninstall() method.
+			$process           = new ProcessExecutor($io);
+			$dispatcher        = new EventDispatcher($composer, $io, $process);
+			$autoloadGenerator = new AutoloadGeneratorWithConfig($dispatcher, $this->io);
+			$this->composer->setAutoloadGenerator($autoloadGenerator);
+			$this->setExtra([]);
 		}
 
 		public
@@ -88,5 +90,12 @@
 					['INIT', 0],
 				],
 			];
+		}
+
+		public function getCapabilities()
+		{
+			return array(
+				'Composer\Plugin\Capability\CommandProvider' => 'Traineratwot\cc\Cli',
+			);
 		}
 	}

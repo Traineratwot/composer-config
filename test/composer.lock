@@ -58,11 +58,11 @@
         },
         {
             "name": "traineratwot/composer-config",
-            "version": "1.0.2",
+            "version": "1.0.0",
             "dist": {
                 "type": "path",
                 "url": "../../composer-config",
-                "reference": "9e164174513f6b6b8b565f02754ac33f4ae1f223"
+                "reference": "5416fab1c5fd637cc77cc6e07fefaed0f0828967"
             },
             "require": {
                 "composer-plugin-api": "^2.3",
@@ -87,7 +87,7 @@
             },
             "scripts": {
                 "up:release": [
-                    "gh release create \"1.0.5\" --generate-notes"
+                    "gh release create \"1.0.0\" --generate-notes"
                 ]
             },
             "license": [

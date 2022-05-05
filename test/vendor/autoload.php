@@ -7,10 +7,6 @@ if (PHP_VERSION_ID < 50600) {
     exit(1);
 }
 
-
-
 require_once __DIR__ . '/composer/autoload_real.php';
-define('CC_PROJECT_NAME', 'nefediev/test');
-require_once  __DIR__ ."/../src/testConfig.php";
 
 return ComposerAutoloaderInitd3137192db640427cf5edb7a2b7e4012::getLoader();

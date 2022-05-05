@@ -39,8 +39,8 @@
 			}
 			$config = '';
 			if ($this->configPath) {
-				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\"; \n";
-				$config .= "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\";";
+				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\";// include config class \n ";
+				$config .= "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\"; // include user config file";
 			}
 			$projectName = $this->composer->getPackage()->getName();
 			return <<<AUTOLOAD
@@ -54,10 +54,11 @@ if (PHP_VERSION_ID < 50600) {
 }
 
 
-
+//start Modyfied by composer-config
+define('CC_PROJECT_NAME', '$projectName'); //set default namespace
+{$config} 
+//end Modyfied by composer-config
 require_once $vendorPathToTargetDirCode;
-define('CC_PROJECT_NAME', '$projectName');
-{$config}
 
 return ComposerAutoloaderInit$suffix::getLoader();
 
