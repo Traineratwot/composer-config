@@ -3,8 +3,6 @@
 	namespace Traineratwot\cc;
 
 
-	use Exception;
-
 	class Config
 	{
 		/**
@@ -12,8 +10,6 @@
 		 * @param $value
 		 * @param $namespace
 		 * @return void
-		 * @noinspection PhpDocMissingThrowsInspection
-		 * @noinspection PhpUnhandledExceptionInspection
 		 */
 		static function set($name, $value, $namespace = NULL)
 		{
@@ -24,16 +20,16 @@
 			if (!defined($const)) {
 				define($const, $value);
 				$const2 = self::getConstKey($name);
-				if (!defined($const)) {
+				if (!defined($const2)) {
 					define($const2, $value);
 				}
-				return;
+				return true;
 			}
 			if (function_exists('runkit_constant_redefine')) {
 				runkit_constant_redefine($const, $value);
-				return;
+				return true;
 			}
-			throw new Exception('Const  "' . $const . '" already defined');
+			return false;
 		}
 
 		/**
@@ -70,6 +66,7 @@
 				'.'  => '_',
 				'+'  => '_',
 			]);
+			$name = str_replace('__','_',$name);
 			return strtoupper($name);
 		}
 	}
