@@ -39,7 +39,7 @@
 		 * @noinspection PhpDocMissingThrowsInspection
 		 * @noinspection PhpUnhandledExceptionInspection
 		 */
-		static function get($name, $namespace = NULL)
+		static function get($name, $namespace = NULL, $default = NULL)
 		{
 			if (!$namespace and defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
@@ -52,7 +52,7 @@
 			if (defined($const)) {
 				return constant($const);
 			}
-			return NULL;
+			return $default;
 		}
 
 		static function getConstKey($name, $namespace = NULL)
