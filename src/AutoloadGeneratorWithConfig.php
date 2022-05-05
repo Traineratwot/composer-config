@@ -14,7 +14,7 @@
 	class AutoloadGeneratorWithConfig extends AutoloadGenerator
 	{
 
-		private string   $configPath = '';
+		private ?string  $configPath = NULL;
 		private Composer $composer;
 
 		public function __construct(Composer $composer, EventDispatcher $eventDispatcher, IOInterface $io = NULL)
