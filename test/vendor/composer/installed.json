@@ -1,0 +1,114 @@
+{
+    "packages": [
+        {
+            "name": "traineratwot/cache",
+            "version": "1.0.2",
+            "version_normalized": "1.0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Traineratwot/cache.git",
+                "reference": "cefef9c4cdf2b36082f98b2adb66d797069cff0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Traineratwot/cache/zipball/cefef9c4cdf2b36082f98b2adb66d797069cff0c",
+                "reference": "cefef9c4cdf2b36082f98b2adb66d797069cff0c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6"
+            },
+            "require-dev": {
+                "jetbrains/phpstorm-attributes": "dev-master",
+                "roave/security-advisories": "dev-latest"
+            },
+            "time": "2022-04-29T19:07:23+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Traineratwot\\Cache\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill",
+                    "email": "Traineratwot@yandex.ru"
+                }
+            ],
+            "description": "simple cache system",
+            "homepage": "https://github.com/traineratwot/cache",
+            "keywords": [
+                "PSR-4",
+                "Simple",
+                "cache"
+            ],
+            "support": {
+                "issues": "https://github.com/Traineratwot/cache/issues",
+                "source": "https://github.com/Traineratwot/cache/tree/1.0.2"
+            },
+            "install-path": "../traineratwot/cache"
+        },
+        {
+            "name": "traineratwot/composer-config",
+            "version": "1.0.1",
+            "version_normalized": "1.0.1.0",
+            "dist": {
+                "type": "path",
+                "url": "../../composer-config",
+                "reference": "75eaa77cee53d3a5dde60bd9196dd37f11967300"
+            },
+            "require": {
+                "composer-plugin-api": "^2.3",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "composer/composer": "^2.3",
+                "jetbrains/phpstorm-attributes": "dev-master",
+                "phpstan/phpstan": "^1.6",
+                "phpunit/phpunit": "^9.5",
+                "roave/security-advisories": "dev-latest"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "Traineratwot\\cc\\Plugin"
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Traineratwot\\cc\\": "src/"
+                }
+            },
+            "scripts": {
+                "up:release": [
+                    "gh release create \"1.0.5\" --generate-notes"
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill",
+                    "email": "Traineratwot@yandex.ru"
+                }
+            ],
+            "description": "description",
+            "keywords": [
+                "composer-plugin",
+                "config",
+                "psr-4"
+            ],
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "../traineratwot/composer-config"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

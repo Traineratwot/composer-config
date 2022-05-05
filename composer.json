@@ -1,0 +1,42 @@
+{
+	"name"             :"traineratwot/composer-config",
+	"description"      :"description",
+	"minimum-stability":"stable",
+	"type"             :"composer-plugin",
+	"license"          :"MIT",
+	"version"          :"1.0.1",
+	"scripts"          :{
+		"up:release":"gh release create \"1.0.5\" --generate-notes"
+	},
+	"authors"          :[
+		{
+			"name" :"Kirill",
+			"email":"Traineratwot@yandex.ru"
+		}
+	],
+	"autoload"         :{
+		"psr-4":{
+			"Traineratwot\\cc\\":"src/"
+		}
+	},
+	"extra"            :{
+		"class"                       :"Traineratwot\\cc\\Plugin",
+		"plugin-modifies-install-path":true
+	},
+	"require"          :{
+		"php"                :">=7.4",
+		"composer-plugin-api":"^2.3"
+	},
+	"require-dev"      :{
+		"phpunit/phpunit"              :"^9.5",
+		"roave/security-advisories"    :"dev-latest",
+		"jetbrains/phpstorm-attributes":"dev-master",
+		"phpstan/phpstan"              :"^1.6",
+		"composer/composer"            :"^2.3"
+	},
+	"keywords"         :[
+		"config",
+		"composer-plugin",
+		"psr-4"
+	]
+}
