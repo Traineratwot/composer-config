@@ -48,7 +48,7 @@
 			}
 
 			$this->composer->setAutoloadGenerator($this->autoloadGeneratorWithConfig);
-			$this->setExtra(array_merge($extra['cc'], ["test" => 11]));
+			$this->setExtra($extra['cc']);
 		}
 
 		public

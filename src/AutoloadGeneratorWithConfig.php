@@ -55,7 +55,9 @@ if (PHP_VERSION_ID < 50600) {
 
 
 //start Modyfied by composer-config
-define('CC_PROJECT_NAME', '$projectName'); //set default namespace
+if(!defined('CC_PROJECT_NAME')){
+	define('CC_PROJECT_NAME', '$projectName'); //set default namespace
+}
 {$config} 
 //end Modyfied by composer-config
 require_once $vendorPathToTargetDirCode;
@@ -86,7 +88,7 @@ AUTOLOAD;
 		/**
 		 * @throws Exception
 		 */
-		public function setConfigPath(string $config)
+		public function setConfigPath($config)
 		{
 			$this->configPath = $config;
 		}
