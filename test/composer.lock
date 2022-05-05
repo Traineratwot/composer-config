@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "db35842788dbc44a47f908cb8b2c6707",
+    "content-hash": "f8f1bab475d5b67550df27faf6ea5d38",
     "packages": [
         {
             "name": "traineratwot/cache",
@@ -58,11 +58,11 @@
         },
         {
             "name": "traineratwot/composer-config",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "dist": {
                 "type": "path",
                 "url": "../../composer-config",
-                "reference": "068eca77daebab5a238966e841eb31d5b4401884"
+                "reference": "9e164174513f6b6b8b565f02754ac33f4ae1f223"
             },
             "require": {
                 "composer-plugin-api": "^2.3",

@@ -2,10 +2,10 @@
 
 	namespace test;
 
-	use Traineratwot\Cache\Cache;
+	use Traineratwot\cc\Config;
 
 	require "vendor/autoload.php";
 
 	echo '<pre>';
-	var_dump(Cache::getKey('test'));
+	var_dump(Config::get('test'));
 	die;

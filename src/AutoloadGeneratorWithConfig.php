@@ -6,7 +6,9 @@
 	use Composer\Autoload\AutoloadGenerator;
 	use Composer\Composer;
 	use Composer\EventDispatcher\EventDispatcher;
+	use Composer\Factory;
 	use Composer\IO\IOInterface;
+	use Composer\Json\JsonFile;
 	use Exception;
 
 	class AutoloadGeneratorWithConfig extends AutoloadGenerator
@@ -37,8 +39,10 @@
 			}
 			$config = '';
 			if ($this->configPath) {
-				$config = "require_once \"" . $this->getConfigPath() . "\";";
+				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\"; \n";
+				$config .= "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\";";
 			}
+			$projectName = $this->composer->getPackage()->getName();
 			return <<<AUTOLOAD
 <?php
 
@@ -52,9 +56,8 @@ if (PHP_VERSION_ID < 50600) {
 
 
 require_once $vendorPathToTargetDirCode;
-
+define('CC_PROJECT_NAME', '$projectName');
 {$config}
-
 
 return ComposerAutoloaderInit$suffix::getLoader();
 
@@ -74,10 +77,9 @@ AUTOLOAD;
 					throw new Exception("File '$config' must be a valid PHP file");
 				}
 			}
-			$vendorPath = $this->composer->getConfig()->get('vendor-dir');
-
-
-			return $this->configPath;
+			$json = new JsonFile(Factory::getComposerFile());
+			$b    = $json->getPath();
+			return $this->getRelativePath($b, $this->configPath);
 		}
 
 		/**
@@ -86,5 +88,38 @@ AUTOLOAD;
 		public function setConfigPath(string $config)
 		{
 			$this->configPath = $config;
+		}
+
+		function getRelativePath($from, $to)
+		{
+			// some compatibility fixes for Windows paths
+			$from = is_dir($from) ? rtrim($from, '\/') . '/' : $from;
+			$to   = is_dir($to) ? rtrim($to, '\/') . '/' : $to;
+			$from = str_replace('\\', '/', $from);
+			$to   = str_replace('\\', '/', $to);
+
+			$from    = explode('/', $from);
+			$to      = explode('/', $to);
+			$relPath = $to;
+
+			foreach ($from as $depth => $dir) {
+				// find first non-matching dir
+				if ($dir === $to[$depth]) {
+					// ignore this directory
+					array_shift($relPath);
+				} else {
+					// get number of remaining dirs to $from
+					$remaining = count($from) - $depth;
+					if ($remaining > 1) {
+						// add traversals up to first matching dir
+						$padLength = (count($relPath) + $remaining - 1) * -1;
+						$relPath   = array_pad($relPath, $padLength, '..');
+						break;
+					} else {
+						$relPath[0] = './' . $relPath[0];
+					}
+				}
+			}
+			return implode('/', $relPath);
 		}
 	}

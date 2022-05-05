@@ -32,7 +32,7 @@
     },
     "extra":{
         "cc":{
-            "configPath": "testConfig.php",
+            "configPath": "src/testConfig.php",
             "test": 11
         }
     }
