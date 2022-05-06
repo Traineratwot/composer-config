@@ -4,7 +4,5 @@
 /composer.lock
 /vendor
 composer.phar
-test/vendor/composer/autoload_files.php
-
 /test/**/vendor
 /test/**/composer.lock
