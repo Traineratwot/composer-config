@@ -6,4 +6,4 @@
 
 	require "vendor/autoload.php";
 
-	Config::set("");
+	var_dump(Config::get("test"));

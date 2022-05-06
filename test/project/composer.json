@@ -19,17 +19,13 @@
         }
     ],
     "autoload"   :{
-        "files":[
-            "src/test2.php"
-        ],
         "psr-4":{
             "src\\":"src"
         }
     },
     "require":{
         "traineratwot/composer-config":"^1.0",
-        "traineratwot/library"        :"^1.0",
-        "traineratwot/cache"          :"^1.0"
+        "traineratwot/library"        :"^1.0"
     },
     "config":{
         "allow-plugins":{
@@ -38,7 +34,7 @@
     },
     "extra":{
         "composer-config": {
-
+            "configPath": "src/testConfig.php"
         }
 
     },

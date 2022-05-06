@@ -50,11 +50,10 @@
 				$extra['composer-config'] = [];
 			}
 			if (in_array(strtolower($package->getType()), ['project', 'composer-plugin', NULL], TRUE)) {
-				if (array_key_exists('configPath', $extra['composer-config'])) {
-					$this->autoloadGeneratorWithConfig->setConfigPath($extra['composer-config']['configPath']);
-				} else {
+				if (!array_key_exists('configPath', $extra['composer-config'])) {
 					$extra['composer-config']['configPath'] = $io->ask("Set config path? [enter to skip]");
 				}
+				$this->autoloadGeneratorWithConfig->setConfigPath($extra['composer-config']['configPath']);
 			}
 			$this->composer->setAutoloadGenerator($this->autoloadGeneratorWithConfig);
 			$this->setExtra($extra['composer-config']);
@@ -70,11 +69,11 @@
 			foreach ($components as $path) {
 				try {
 					$path = self::pathNormalize($path);
-					if ($path and file_exists($path)) {
-						$json = file_get_contents($path);
-						$pack = json_decode($json, 1, 2048, JSON_THROW_ON_ERROR);
+					if ($path) {
+						$json = new JsonFile($path);
+						$pack = $json->read();
 						if (array_key_exists('extra', $pack) and array_key_exists('composer-config', $pack['extra'])) {
-							$namespace = $pack['extra']['namespace'] ?? $pack['name'];
+							$namespace = strtolower($pack['extra']['composer-config']['namespace'] ?? $pack['name']);
 							if (array_key_exists('required', $pack['extra']['composer-config'])) {
 								foreach ($pack['extra']['composer-config']['required'] as $key => $value) {
 									$this->options['required'][$key][$namespace] = $value;

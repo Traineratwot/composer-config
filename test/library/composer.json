@@ -29,9 +29,13 @@
 			"traineratwot/composer-config":true
 		}
 	},
-	"$schema"     :"https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json",
+	"$schema": "https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json",
 	"extra"       :{
 		"composer-config":{
+			"namespace":"Lb1",
+			"required":{
+				"test": "test description"
+			}
 		}
 	}
 }

@@ -62,6 +62,7 @@
 
 		static function getConstKey($name, $namespace = NULL)
 		{
+			$namespace = strtolower($namespace);
 			$name = strtr("cc_" . $namespace . '_' . $name, [
 				'\\' => '_',
 				'/'  => '_',

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "efefac527e9668102f5e11193af4b7cf",
+    "content-hash": "72a93fb467e1488982a8b23718dbae50",
     "packages": [
         {
             "name": "traineratwot/cache",
@@ -62,7 +62,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../composer-config",
-                "reference": "0f085ebc7232a1caedd724480f9f9a1a40e47f73"
+                "reference": "c530e9348ca1f2fb79e69384ec41c7c5f9fc748e"
             },
             "require": {
                 "composer-plugin-api": "^2.3",
@@ -114,7 +114,7 @@
             "dist": {
                 "type": "path",
                 "url": "../library",
-                "reference": "a2eae28d0fc5226d8a76be69fffa74f3d0a48997"
+                "reference": "afaef50b06da8b6fa050a4352e3366f499147e60"
             },
             "require": {
                 "traineratwot/cache": "^1.0",
@@ -122,7 +122,12 @@
             },
             "type": "library",
             "extra": {
-                "composer-config": []
+                "composer-config": {
+                    "namespace": "Lb1",
+                    "required": {
+                        "test": "test description"
+                    }
+                }
             },
             "autoload": {
                 "psr-4": {

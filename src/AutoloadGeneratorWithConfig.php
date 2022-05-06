@@ -57,14 +57,14 @@ if (PHP_VERSION_ID < 50600) {
 }
 
 
-//start Modyfied by composer-config
+//start Modified by composer-config
 if(!defined('CC_PROJECT_NAME')){
 	define('CC_PROJECT_NAME', '$projectName'); //set default namespace
 }
 \$CC_OPTIONS = {$options};
 
 {$config} 
-//end Modyfied by composer-config
+//end Modified by composer-config
 require_once $vendorPathToTargetDirCode;
 
 return ComposerAutoloaderInit$suffix::getLoader();
