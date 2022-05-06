@@ -4,6 +4,7 @@
 
 
 	use Composer\Autoload\AutoloadGenerator;
+	use Composer\Autoload\ClassLoader;
 	use Composer\Composer;
 	use Composer\EventDispatcher\EventDispatcher;
 	use Composer\Factory;
@@ -39,10 +40,14 @@
 			} else {
 				$vendorPathToTargetDirCode .= " . '/autoload_real.php'";
 			}
-			$config  = '';
-			$options = var_export($this->plugin->options, 1);
+			$config    = '';
+			$options   = var_export($this->plugin->options, 1);
+			$vendorDir = $this->composer->getConfig()->get('vendor-dir');
+			$cl = new ClassLoader($vendorDir);
+			$path = $cl->findFile(Config::class);
+			var_dump($path);
 			if ($this->configPath) {
-				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\";// include config class \n ";
+				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\";// include config class \n";
 				$config .= "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\"; // include user config file";
 			}
 			$projectName = $this->composer->getPackage()->getName();

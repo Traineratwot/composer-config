@@ -1,5 +1,6 @@
 {
     "name"        :"traineratwot/test",
+    "type"        :"project",
     "authors"     :[
         {
             "name" :"Kirill",

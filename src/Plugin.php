@@ -49,7 +49,7 @@
 			if (!array_key_exists('composer-config', $extra)) {
 				$extra['composer-config'] = [];
 			}
-			if (in_array(strtolower($package->getType()), ['project', 'composer-plugin', NULL], TRUE)) {
+			if (in_array(strtolower($package->getType()), ['project', 'composer-plugin', ''], TRUE)) {
 				if (!array_key_exists('configPath', $extra['composer-config'])) {
 					$extra['composer-config']['configPath'] = $io->ask("Set config path? [enter to skip]");
 				}
