@@ -71,7 +71,7 @@
 				'.'  => '_',
 				'+'  => '_',
 			]);
-			$name = str_replace('__','_',$name);
+			$name = preg_replace("/_+/",'_',$name);
 			return strtoupper($name);
 		}
 	}
