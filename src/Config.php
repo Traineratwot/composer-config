@@ -12,12 +12,15 @@
 		 * @param bool   $strict    disable create key without namespace
 		 * @return bool
 		 */
-		static function set($name, $value, $namespace = NULL, $strict = FALSE)
+		static function set($name, $value, $namespace = NULL, $strict = FALSE, $clone=null)
 		{
 			if (!$namespace and defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
 			}
 			$const = self::getConstKey($name, $namespace);
+			if (!defined($clone)) {
+				define($clone, $value);
+			}
 			if (!defined($const)) {
 				define($const, $value);
 				if (!$strict) {

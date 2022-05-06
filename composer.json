@@ -4,9 +4,9 @@
 	"minimum-stability":"stable",
 	"type"             :"composer-plugin",
 	"license"          :"MIT",
-	"version"          :"1.0.8",
+	"version"          :"1.0.9",
 	"scripts"          :{
-		"up:release":"gh release create \"1.0.8\" --generate-notes"
+		"up:release":"gh release create \"1.0.9\" --generate-notes"
 	},
 	"authors"          :[
 		{
