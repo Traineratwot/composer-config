@@ -5,6 +5,6 @@
 /test/bin/
 /test/func/vendor/
 /test/func/composer.lock
-/vendor/
+vendor
 composer.phar
 test/vendor/composer/autoload_files.php

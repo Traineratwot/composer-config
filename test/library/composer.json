@@ -1,0 +1,27 @@
+{
+	"name"        :"traineratwot/library",
+	"type"        :"library",
+	"autoload"    :{
+		"psr-4":{
+			"Nefediev\\Library\\":"src/"
+		}
+	},
+	"authors"     :[
+		{
+			"name" :"Kirill",
+			"email":"41589091+Traineratwot@users.noreply.github.com"
+		}
+	],
+	"repositories":[
+		{
+			"type"   :"path",
+			"version":"dev-master",
+			"url"    :"../../../composer-config"
+		},
+
+	],
+	"require"     :{
+		"traineratwot/composer-config":"dev-master",
+		"traineratwot/cache"          :"^1.0"
+	}
+}
