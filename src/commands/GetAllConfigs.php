@@ -14,14 +14,12 @@
 		{
 			$this->setName('getAllConfigs');
 			$this->setHelp('Print all configs');
-			$this->addArgument('namespace');
 		}
 
 		protected function execute(InputInterface $input, OutputInterface $output)
 		: int
 		{
 			global $CC_OPTIONS;
-			$namespace = $input->getArgument('namespace');
 			$s         = new SymfonyStyle($input, $output);
 			$rows      = [];
 			foreach ($CC_OPTIONS as $type => $value) {

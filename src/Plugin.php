@@ -73,7 +73,7 @@
 						$json = new JsonFile($path);
 						$pack = $json->read();
 						if (array_key_exists('extra', $pack) and array_key_exists('composer-config', $pack['extra'])) {
-							$namespace = strtolower($pack['extra']['composer-config']['namespace'] ?? $pack['name']);
+							$namespace = $pack['extra']['composer-config']['namespace'] ?? $pack['name'];
 							if (array_key_exists('required', $pack['extra']['composer-config'])) {
 								foreach ($pack['extra']['composer-config']['required'] as $key => $value) {
 									$this->options['required'][$key][$namespace] = $value;
