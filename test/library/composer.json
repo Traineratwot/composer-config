@@ -1,6 +1,7 @@
 {
 	"name"        :"traineratwot/library",
 	"type"        :"library",
+	"version"     :"1.0.0",
 	"autoload"    :{
 		"psr-4":{
 			"Nefediev\\Library\\":"src/"
@@ -17,11 +18,20 @@
 			"type"   :"path",
 			"version":"dev-master",
 			"url"    :"../../../composer-config"
-		},
-
+		}
 	],
 	"require"     :{
-		"traineratwot/composer-config":"dev-master",
+		"traineratwot/composer-config":"^1.0",
 		"traineratwot/cache"          :"^1.0"
+	},
+	"config"      :{
+		"allow-plugins":{
+			"traineratwot/composer-config":true
+		}
+	},
+	"$schema"     :"https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json",
+	"extra"       :{
+		"composer-config":{
+		}
 	}
 }

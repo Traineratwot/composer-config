@@ -70,10 +70,9 @@
 			foreach ($components as $path) {
 				try {
 					$path = self::pathNormalize($path);
-					echo $path . PHP_EOL;
-					if ($path) {
-						$json = new JsonFile($path);
-						$pack = $json->read();
+					if ($path and file_exists($path)) {
+						$json = file_get_contents($path);
+						$pack = json_decode($json, 1, 2048, JSON_THROW_ON_ERROR);
 						if (array_key_exists('extra', $pack) and array_key_exists('composer-config', $pack['extra'])) {
 							$namespace = $pack['extra']['namespace'] ?? $pack['name'];
 							if (array_key_exists('required', $pack['extra']['composer-config'])) {
@@ -97,11 +96,15 @@
 
 		public function setExtra($value)
 		{
-			$json        = new JsonFile(Factory::getComposerFile());
-			$manipulator = new JsonManipulator(file_get_contents($json->getPath()));
-			$manipulator->addMainKey('$schema', 'https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json');
-			$manipulator->addSubNode('extra', 'composer-config', $value);
-			file_put_contents($json->getPath(), $manipulator->getContents());
+			try {
+				$json        = new JsonFile(Factory::getComposerFile());
+				$manipulator = new JsonManipulator(file_get_contents($json->getPath()));
+				$manipulator->addMainKey('$schema', 'https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json');
+				$manipulator->addSubNode('extra', 'composer-config', $value);
+				file_put_contents($json->getPath(), $manipulator->getContents());
+			} catch (Exception $e) {
+
+			}
 		}
 
 		public function deactivate(Composer $composer, IOInterface $io)

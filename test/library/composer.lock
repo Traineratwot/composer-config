@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "efefac527e9668102f5e11193af4b7cf",
+    "content-hash": "fd9079e7f96a502adedc96e525b98cce",
     "packages": [
         {
             "name": "traineratwot/cache",
@@ -103,37 +103,6 @@
                 "composer-plugin",
                 "config",
                 "psr-4"
-            ],
-            "transport-options": {
-                "relative": true
-            }
-        },
-        {
-            "name": "traineratwot/library",
-            "version": "1.0.0",
-            "dist": {
-                "type": "path",
-                "url": "../library",
-                "reference": "a2eae28d0fc5226d8a76be69fffa74f3d0a48997"
-            },
-            "require": {
-                "traineratwot/cache": "^1.0",
-                "traineratwot/composer-config": "^1.0"
-            },
-            "type": "library",
-            "extra": {
-                "composer-config": []
-            },
-            "autoload": {
-                "psr-4": {
-                    "Nefediev\\Library\\": "src/"
-                }
-            },
-            "authors": [
-                {
-                    "name": "Kirill",
-                    "email": "41589091+Traineratwot@users.noreply.github.com"
-                }
             ],
             "transport-options": {
                 "relative": true

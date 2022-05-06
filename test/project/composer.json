@@ -27,8 +27,8 @@
         }
     },
     "require":{
-        "traineratwot/composer-config":"dev-master",
-        "traineratwot/library"        :"dev-master",
+        "traineratwot/composer-config":"^1.0",
+        "traineratwot/library"        :"^1.0",
         "traineratwot/cache"          :"^1.0"
     },
     "config":{
@@ -37,8 +37,10 @@
         }
     },
     "extra":{
-        "cc":{
-            "configPath":"src/testConfig.php"
+        "composer-config": {
+
         }
-    }
+
+    },
+    "$schema": "https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json"
 }

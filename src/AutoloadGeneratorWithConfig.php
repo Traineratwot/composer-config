@@ -98,7 +98,7 @@ AUTOLOAD;
 			$this->configPath = $config;
 		}
 
-		function getRelativePath($from, $to)
+		public function getRelativePath($from, $to)
 		{
 			// some compatibility fixes for Windows paths
 			$from = is_dir($from) ? rtrim($from, '\/') . '/' : $from;
@@ -123,9 +123,9 @@ AUTOLOAD;
 						$padLength = (count($relPath) + $remaining - 1) * -1;
 						$relPath   = array_pad($relPath, $padLength, '..');
 						break;
-					} else {
-						$relPath[0] = './' . $relPath[0];
 					}
+
+					$relPath[0] = './' . $relPath[0];
 				}
 			}
 			return implode('/', $relPath);
