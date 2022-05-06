@@ -44,8 +44,6 @@
 			$options   = var_export($this->plugin->options, 1);
 			$vendorDir = $this->composer->getConfig()->get('vendor-dir');
 			$cl = new ClassLoader($vendorDir);
-			$path = $cl->findFile(Config::class);
-			var_dump($path);
 			if ($this->configPath) {
 				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\";// include config class \n";
 				$config .= "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\"; // include user config file";
@@ -61,15 +59,14 @@ if (PHP_VERSION_ID < 50600) {
     exit(1);
 }
 
-
-//start Modified by composer-config
+//Start Modified by composer-config
 if(!defined('CC_PROJECT_NAME')){
 	define('CC_PROJECT_NAME', '$projectName'); //set default namespace
 }
 \$CC_OPTIONS = {$options};
 
 {$config} 
-//end Modified by composer-config
+//End Modified by composer-config
 require_once $vendorPathToTargetDirCode;
 
 return ComposerAutoloaderInit$suffix::getLoader();
