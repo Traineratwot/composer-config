@@ -31,7 +31,6 @@
 		"phpunit/phpunit"              :"^9.5",
 		"roave/security-advisories"    :"dev-latest",
 		"jetbrains/phpstorm-attributes":"dev-master",
-		"phpstan/phpstan"              :"^1.6",
 		"composer/composer"            :"^2.3"
 	},
 	"keywords"         :[

@@ -51,8 +51,7 @@
 			$this->setExtra($extra['cc']);
 		}
 
-		public
-		function setExtra($value)
+		public function setExtra($value)
 		{
 			$json        = new JsonFile(Factory::getComposerFile());
 			$manipulator = new JsonManipulator(file_get_contents($json->getPath()));
@@ -60,14 +59,12 @@
 			file_put_contents($json->getPath(), $manipulator->getContents());
 		}
 
-		public
-		function deactivate(Composer $composer, IOInterface $io)
+		public function deactivate(Composer $composer, IOInterface $io)
 		{
 			// TODO: Implement deactivate() method.
 		}
 
-		public
-		function uninstall(Composer $composer, IOInterface $io)
+		public function uninstall(Composer $composer, IOInterface $io)
 		{
 			$process           = new ProcessExecutor($io);
 			$dispatcher        = new EventDispatcher($composer, $io, $process);
@@ -76,14 +73,12 @@
 			$this->setExtra([]);
 		}
 
-		public
-		function INIT(Event $event)
+		public function INIT(Event $event)
 		{
 
 		}
 
-		public
-		static function getSubscribedEvents()
+		public static function getSubscribedEvents()
 		{
 			return [
 				PluginEvents::INIT => [
