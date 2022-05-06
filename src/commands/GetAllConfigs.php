@@ -13,6 +13,7 @@
 		: void
 		{
 			$this->setName('getAllConfigs');
+			$this->setHelp('Print all configs');
 			$this->addArgument('namespace');
 		}
 

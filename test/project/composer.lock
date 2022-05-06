@@ -62,7 +62,7 @@
             "dist": {
                 "type": "path",
                 "url": "../../../composer-config",
-                "reference": "e2ebc0248f5a4a1b65ac16112a8be25d856147c0"
+                "reference": "d7f48a440db09f08be2e5a110db81553195ac5cb"
             },
             "require": {
                 "composer-plugin-api": "^2.3",

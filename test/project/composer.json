@@ -39,5 +39,8 @@
         }
 
     },
-    "$schema": "https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json"
+    "$schema": "https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json",
+    "scripts": {
+        "composer-config": "composer getAllConfigs"
+    }
 }
