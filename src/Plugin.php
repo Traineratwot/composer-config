@@ -21,8 +21,12 @@
 
 
 		private AutoloadGeneratorWithConfig $autoloadGeneratorWithConfig;
-		private Composer                    $composer;
+		public Composer                     $composer;
 		private IOInterface                 $io;
+		/**
+		 * @var array[]
+		 */
+		public array $options;
 
 		/**
 		 * @throws Exception
@@ -31,31 +35,72 @@
 		{
 			$this->composer                    = $composer;
 			$this->io                          = $io;
+			$this->options                     = [
+				'required' => [],
+				'optional' => [],
+			];
 			$package                           = $composer->getPackage();
 			$extra                             = $package->getExtra();
 			$process                           = new ProcessExecutor($io);
 			$dispatcher                        = new EventDispatcher($composer, $io, $process);
-			$this->autoloadGeneratorWithConfig = new AutoloadGeneratorWithConfig($composer, $dispatcher, $this->io);
+			$this->autoloadGeneratorWithConfig = new AutoloadGeneratorWithConfig($this, $dispatcher, $this->io);
 
-
-			if (!array_key_exists('cc', $extra)) {
-				$extra['cc'] = [];
+			$this->getAllConfigs();
+			if (!array_key_exists('composer-config', $extra)) {
+				$extra['composer-config'] = [];
 			}
-			if (array_key_exists('configPath', $extra['cc'])) {
-				$this->autoloadGeneratorWithConfig->setConfigPath($extra['cc']['configPath']);
-			} else {
-				$extra['cc']['configPath'] = $io->ask("Set config path? [enter to skip]");
+			if (in_array(strtolower($package->getType()), ['project', 'composer-plugin', NULL], TRUE)) {
+				if (array_key_exists('configPath', $extra['composer-config'])) {
+					$this->autoloadGeneratorWithConfig->setConfigPath($extra['composer-config']['configPath']);
+				} else {
+					$extra['composer-config']['configPath'] = $io->ask("Set config path? [enter to skip]");
+				}
 			}
-
 			$this->composer->setAutoloadGenerator($this->autoloadGeneratorWithConfig);
-			$this->setExtra($extra['cc']);
+			$this->setExtra($extra['composer-config']);
+		}
+
+		public function getAllConfigs()
+		{
+			global $CC_OPTIONS;
+			$v            = $this->composer->getConfig()->get('vendor-dir');
+			$v            = self::pathNormalize($v);
+			$components   = glob($v . '*/*/composer.json');
+			$components[] = self::pathNormalize(Factory::getComposerFile());
+			foreach ($components as $path) {
+				try {
+					$path = self::pathNormalize($path);
+					echo $path . PHP_EOL;
+					if ($path) {
+						$json = new JsonFile($path);
+						$pack = $json->read();
+						if (array_key_exists('extra', $pack) and array_key_exists('composer-config', $pack['extra'])) {
+							$namespace = $pack['extra']['namespace'] ?? $pack['name'];
+							if (array_key_exists('required', $pack['extra']['composer-config'])) {
+								foreach ($pack['extra']['composer-config']['required'] as $key => $value) {
+									$this->options['required'][$key][$namespace] = $value;
+								}
+							}
+							if (array_key_exists('optional', $pack['extra']['composer-config'])) {
+								foreach ($pack['extra']['composer-config']['optional'] as $key => $value) {
+									$this->options['optional'][$key][$namespace] = $value;
+								}
+							}
+						}
+					}
+				} catch (Exception $e) {
+
+				}
+			}
+			$CC_OPTIONS = $this->options;
 		}
 
 		public function setExtra($value)
 		{
 			$json        = new JsonFile(Factory::getComposerFile());
 			$manipulator = new JsonManipulator(file_get_contents($json->getPath()));
-			$manipulator->addSubNode('extra', 'cc', $value);
+			$manipulator->addMainKey('$schema', 'https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json');
+			$manipulator->addSubNode('extra', 'composer-config', $value);
 			file_put_contents($json->getPath(), $manipulator->getContents());
 		}
 
@@ -89,8 +134,37 @@
 
 		public function getCapabilities()
 		{
-			return array(
+			return [
 				'Composer\Plugin\Capability\CommandProvider' => 'Traineratwot\cc\Cli',
-			);
+			];
+		}
+
+		public static function pathNormalize($path, $DIRECTORY_SEPARATOR = "/")
+		{
+			$path = preg_replace('/(\/+|\\\\+)/m', $DIRECTORY_SEPARATOR, $path);
+			if (file_exists($path)) {
+				if (is_dir($path)) {
+					if (self::getSystem() === 'nix') {
+						$path = "/" . trim($path, $DIRECTORY_SEPARATOR) . $DIRECTORY_SEPARATOR;
+					} else {
+						$path = trim($path, $DIRECTORY_SEPARATOR) . $DIRECTORY_SEPARATOR;
+					}
+				} elseif (self::getSystem() === 'nix') {
+					$path = $DIRECTORY_SEPARATOR . trim($path, $DIRECTORY_SEPARATOR);
+				} else {
+					$path = trim($path, $DIRECTORY_SEPARATOR);
+				}
+				return $path;
+			}
+			return $path;
+		}
+
+		public static function getSystem()
+		{
+			$sys = strtolower(php_uname('s'));
+			if (strpos($sys, 'windows') !== FALSE) {
+				return 'win';
+			}
+			return 'nix';
 		}
 	}

@@ -71,7 +71,26 @@
 				'.'  => '_',
 				'+'  => '_',
 			]);
-			$name = preg_replace("/_+/",'_',$name);
+			$name = preg_replace("/_+/", '_', $name);
 			return strtoupper($name);
 		}
+
+		static function getRequired()
+		{
+			global $CC_OPTIONS;
+			return $CC_OPTIONS['required'];
+		}
+
+		static function getAllOptions()
+		{
+			global $CC_OPTIONS;
+			return array_merge($CC_OPTIONS['required'], $CC_OPTIONS['optional']);
+		}
+
+		static function getOptional()
+		{
+			global $CC_OPTIONS;
+			return $CC_OPTIONS['optional'];
+		}
+
 	}

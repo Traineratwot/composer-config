@@ -7,3 +7,4 @@
 /test/func/composer.lock
 /vendor/
 composer.phar
+test/vendor/composer/autoload_files.php

@@ -16,10 +16,12 @@
 
 		private ?string  $configPath = NULL;
 		private Composer $composer;
+		private          $plugin;
 
-		public function __construct(Composer $composer, EventDispatcher $eventDispatcher, IOInterface $io = NULL)
+		public function __construct($plugin, EventDispatcher $eventDispatcher, IOInterface $io = NULL)
 		{
-			$this->composer = $composer;
+			$this->plugin   = $plugin;
+			$this->composer = $plugin->composer;
 			parent::__construct($eventDispatcher, $io);
 		}
 
@@ -37,7 +39,8 @@
 			} else {
 				$vendorPathToTargetDirCode .= " . '/autoload_real.php'";
 			}
-			$config = '';
+			$config  = '';
+			$options = var_export($this->plugin->options, 1);
 			if ($this->configPath) {
 				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\";// include config class \n ";
 				$config .= "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\"; // include user config file";
@@ -58,6 +61,8 @@ if (PHP_VERSION_ID < 50600) {
 if(!defined('CC_PROJECT_NAME')){
 	define('CC_PROJECT_NAME', '$projectName'); //set default namespace
 }
+\$CC_OPTIONS = {$options};
+
 {$config} 
 //end Modyfied by composer-config
 require_once $vendorPathToTargetDirCode;
