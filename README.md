@@ -75,3 +75,28 @@ How does it work?
 	Config::get('test2','lb1')//value3
 
 ```
+
+### commands
+>**getAllConfigs**
+> 
+> en
+> 
+> Returns all settings that can or should be defined in the project
+> 
+> ru
+> 
+> Возвращякт все настройки которые можно или нужну определить в проэкте
+>
+>```bash
+>composer getAllConfigs
+>
+>```
+>
+>```txt
+> ------------ ----------- ------------------ ---------- --------- 
+>  config key   namespace   description        type       is set?  
+> ------------ ----------- ------------------ ---------- ---------
+> string       string      string             string     yes/no
+> ------------ ----------- ------------------ ---------- ---------
+>
+>```
