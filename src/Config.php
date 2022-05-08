@@ -2,9 +2,10 @@
 
 	namespace Traineratwot\cc;
 
-
 	class Config
 	{
+		public static array $aliases = [];
+
 		/**
 		 * @param string $name      Config key
 		 * @param mixed  $value     Config value
@@ -14,18 +15,21 @@
 		 */
 		public static function set(string $name, $value, $namespace = NULL, bool $strict = FALSE, $clone = NULL)
 		{
-			if (!$namespace and defined('CC_PROJECT_NAME')) {
+			if (!$namespace && defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
 			}
-			$const = self::getConstKey($name, $namespace);
-			if (!defined($clone)) {
+			if($clone && !defined($clone)) {
+				self::$aliases[$clone] = $value;
 				define($clone, $value);
 			}
-			if (!defined($const)) {
+			$const = self::getConstKey($name, $namespace);
+			if ($const && !defined($const)) {
+				self::$aliases[$const] = $value;
 				define($const, $value);
 				if (!$strict) {
 					$const2 = self::getConstKey($name);
-					if (!defined($const2)) {
+					if ($const2 && !defined($const2)) {
+						self::$aliases[$const2] = $value;
 						define($const2, $value);
 					}
 				}

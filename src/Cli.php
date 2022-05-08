@@ -3,6 +3,7 @@
 	namespace Traineratwot\cc;
 
 	use Composer\Plugin\Capability\CommandProvider as CommandProviderCapability;
+	use Traineratwot\cc\commands\ConfigUpdate;
 	use Traineratwot\cc\commands\GetAllConfigs;
 
 	class Cli implements CommandProviderCapability
@@ -10,6 +11,6 @@
 
 		public function getCommands()
 		{
-			return [new GetAllConfigs()];
+			return [new GetAllConfigs(),new ConfigUpdate()];
 		}
 	}

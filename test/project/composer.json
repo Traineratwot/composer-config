@@ -41,6 +41,8 @@
     },
     "$schema": "https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json",
     "scripts": {
-        "composer-config": "composer getAllConfigs"
+        "composer-config": "composer getAllConfigs",
+        "composer-config-print": "composer getAllConfigs",
+        "composer-config-update": "composer configUpdate"
     }
 }

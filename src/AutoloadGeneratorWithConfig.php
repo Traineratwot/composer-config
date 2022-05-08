@@ -33,7 +33,6 @@
 		 * @throws Exception
 		 */
 		public function getAutoloadFile(string $vendorPathToTargetDirCode, string $suffix)
-		: string
 		{
 			$lastChar = $vendorPathToTargetDirCode[strlen($vendorPathToTargetDirCode) - 1];
 			if ("'" === $lastChar || '"' === $lastChar) {

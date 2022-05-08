@@ -5,5 +5,4 @@
 	use Traineratwot\cc\Config;
 
 	require "vendor/autoload.php";
-
-	var_dump(Config::get("test"));
+	echo CC_LB1_TEST;

@@ -135,7 +135,8 @@
 				$manipulator = new JsonManipulator(file_get_contents($json->getPath()));
 				$manipulator->addMainKey('$schema', 'https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json');
 				$manipulator->addSubNode('extra', 'composer-config', $value);
-				$manipulator->addSubNode('scripts', 'composer-config', "composer getAllConfigs");
+				$manipulator->addSubNode('scripts', 'composer-config-print', "composer getAllConfigs");
+				$manipulator->addSubNode('scripts', 'composer-config-update', "composer configUpdate");
 				file_put_contents($json->getPath(), $manipulator->getContents());
 			} catch (Exception $e) {
 
