@@ -45,11 +45,14 @@
 				$inc     = "<?php\n";
 				foreach ($aliases as $name => $val) {
 					$inc .= <<<INC
-	const $name = '$val';
+	const $name = <<<'TXT'
+$val
+TXT;
 	
 INC;
 				}
 				file_put_contents($dir . '/vendor/cc.config.inc', $inc);
+				$output->writeln('ok');
 			}
 			return 0;
 		}
