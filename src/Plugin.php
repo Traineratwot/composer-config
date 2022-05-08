@@ -20,13 +20,22 @@
 	{
 
 
-		private AutoloadGeneratorWithConfig $autoloadGeneratorWithConfig;
 		public Composer                     $composer;
-		private IOInterface                 $io;
 		/**
 		 * @var array[]
 		 */
 		public array $options;
+		private AutoloadGeneratorWithConfig $autoloadGeneratorWithConfig;
+		private IOInterface                 $io;
+
+		public static function getSubscribedEvents()
+		{
+			return [
+				PluginEvents::INIT => [
+					['INIT', 0],
+				],
+			];
+		}
 
 		/**
 		 * @throws Exception
@@ -93,6 +102,35 @@
 			$CC_OPTIONS = $this->options;
 		}
 
+		public static function pathNormalize($path, $DIRECTORY_SEPARATOR = "/")
+		{
+			$path = preg_replace('/(\/+|\\\\+)/m', $DIRECTORY_SEPARATOR, $path);
+			if (file_exists($path)) {
+				if (is_dir($path)) {
+					if (self::getSystem() === 'nix') {
+						$path = "/" . trim($path, $DIRECTORY_SEPARATOR) . $DIRECTORY_SEPARATOR;
+					} else {
+						$path = trim($path, $DIRECTORY_SEPARATOR) . $DIRECTORY_SEPARATOR;
+					}
+				} elseif (self::getSystem() === 'nix') {
+					$path = $DIRECTORY_SEPARATOR . trim($path, $DIRECTORY_SEPARATOR);
+				} else {
+					$path = trim($path, $DIRECTORY_SEPARATOR);
+				}
+				return $path;
+			}
+			return $path;
+		}
+
+		public static function getSystem()
+		{
+			$sys = strtolower(php_uname('s'));
+			if (strpos($sys, 'windows') !== FALSE) {
+				return 'win';
+			}
+			return 'nix';
+		}
+
 		public function setExtra($value)
 		{
 			try {
@@ -126,48 +164,10 @@
 
 		}
 
-		public static function getSubscribedEvents()
-		{
-			return [
-				PluginEvents::INIT => [
-					['INIT', 0],
-				],
-			];
-		}
-
 		public function getCapabilities()
 		{
 			return [
 				'Composer\Plugin\Capability\CommandProvider' => 'Traineratwot\cc\Cli',
 			];
-		}
-
-		public static function pathNormalize($path, $DIRECTORY_SEPARATOR = "/")
-		{
-			$path = preg_replace('/(\/+|\\\\+)/m', $DIRECTORY_SEPARATOR, $path);
-			if (file_exists($path)) {
-				if (is_dir($path)) {
-					if (self::getSystem() === 'nix') {
-						$path = "/" . trim($path, $DIRECTORY_SEPARATOR) . $DIRECTORY_SEPARATOR;
-					} else {
-						$path = trim($path, $DIRECTORY_SEPARATOR) . $DIRECTORY_SEPARATOR;
-					}
-				} elseif (self::getSystem() === 'nix') {
-					$path = $DIRECTORY_SEPARATOR . trim($path, $DIRECTORY_SEPARATOR);
-				} else {
-					$path = trim($path, $DIRECTORY_SEPARATOR);
-				}
-				return $path;
-			}
-			return $path;
-		}
-
-		public static function getSystem()
-		{
-			$sys = strtolower(php_uname('s'));
-			if (strpos($sys, 'windows') !== FALSE) {
-				return 'win';
-			}
-			return 'nix';
 		}
 	}

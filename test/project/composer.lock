@@ -58,14 +58,14 @@
         },
         {
             "name": "traineratwot/composer-config",
-            "version": "1.0.8",
+            "version": "1.0.10",
             "dist": {
                 "type": "path",
                 "url": "../../../composer-config",
-                "reference": "65a07d9d7f08c81fa11f035628b4d8734704fb88"
+                "reference": "d5fce950cdef28fa82a64167b061ddc427aa2390"
             },
             "require": {
-                "composer-plugin-api": "^2.3",
+                "composer-plugin-api": "^2.1",
                 "php": ">=7.4"
             },
             "require-dev": {
@@ -86,7 +86,7 @@
             },
             "scripts": {
                 "up:release": [
-                    "gh release create \"1.0.8\" --generate-notes"
+                    "gh release create \"1.0.10\" --generate-notes"
                 ]
             },
             "license": [
@@ -114,7 +114,7 @@
             "dist": {
                 "type": "path",
                 "url": "../library",
-                "reference": "afaef50b06da8b6fa050a4352e3366f499147e60"
+                "reference": "4926a3f63ce98f148ac287f6cf94f53684f65e4c"
             },
             "require": {
                 "traineratwot/cache": "^1.0",

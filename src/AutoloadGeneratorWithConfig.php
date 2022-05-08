@@ -4,13 +4,13 @@
 
 
 	use Composer\Autoload\AutoloadGenerator;
-	use Composer\Autoload\ClassLoader;
 	use Composer\Composer;
 	use Composer\EventDispatcher\EventDispatcher;
 	use Composer\Factory;
 	use Composer\IO\IOInterface;
 	use Composer\Json\JsonFile;
 	use Exception;
+	use RuntimeException;
 
 	class AutoloadGeneratorWithConfig extends AutoloadGenerator
 	{
@@ -32,7 +32,8 @@
 		 * @return string
 		 * @throws Exception
 		 */
-		protected function getAutoloadFile(string $vendorPathToTargetDirCode, string $suffix)
+		public function getAutoloadFile(string $vendorPathToTargetDirCode, string $suffix)
+		: string
 		{
 			$lastChar = $vendorPathToTargetDirCode[strlen($vendorPathToTargetDirCode) - 1];
 			if ("'" === $lastChar || '"' === $lastChar) {
@@ -40,10 +41,10 @@
 			} else {
 				$vendorPathToTargetDirCode .= " . '/autoload_real.php'";
 			}
-			$config    = '';
-			$options   = var_export($this->plugin->options, 1);
-			$vendorDir = $this->composer->getConfig()->get('vendor-dir');
-			$cl = new ClassLoader($vendorDir);
+			$config  = '';
+			$options = var_export($this->plugin->options, 1);
+//			$vendorDir = $this->composer->getConfig()->get('vendor-dir');
+//			$cl        = new ClassLoader($vendorDir);
 			if ($this->configPath) {
 				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\";// include config class \n";
 				$config .= "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\"; // include user config file";
@@ -75,16 +76,16 @@ AUTOLOAD;
 		}
 
 		/**
-		 * @throws Exception
+		 * @throws RuntimeException
 		 */
 		public function getConfigPath()
 		{
 			if ($this->configPath) {
 				if (!file_exists($this->configPath)) {
-					throw new Exception("File '$config' does not exist");
+					throw new RuntimeException("File '{$this->configPath}' does not exist");
 				}
 				if (strpos($this->configPath, '.php') === FALSE) {
-					throw new Exception("File '$config' must be a valid PHP file");
+					throw new RuntimeException("File '{$this->configPath}' must be a valid PHP file");
 				}
 			}
 			$json = new JsonFile(Factory::getComposerFile());

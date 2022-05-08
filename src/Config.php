@@ -12,7 +12,7 @@
 		 * @param bool   $strict    disable create key without namespace
 		 * @return bool
 		 */
-		static function set($name, $value, $namespace = NULL, $strict = FALSE, $clone=null)
+		public static function set(string $name, $value, $namespace = NULL, bool $strict = FALSE, $clone = NULL)
 		{
 			if (!$namespace and defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
@@ -33,37 +33,12 @@
 			}
 			if (function_exists('runkit_constant_redefine')) {
 				runkit_constant_redefine($const, $value);
-				return true;
+				return TRUE;
 			}
-			return false;
+			return FALSE;
 		}
 
-		/**
-		 * @param string $name      Config key
-		 * @param null   $namespace namespace default is project name
-		 * @param null   $default   default value if key not found
-		 * @param bool   $strict    disable ignore namespace if key in namespace not found
-		 * @return mixed
-		 */
-		static function get($name, $namespace = NULL, $default = NULL, $strict = FALSE)
-		{
-			if (!$namespace and defined('CC_PROJECT_NAME')) {
-				$namespace = CC_PROJECT_NAME;
-			}
-			$const = self::getConstKey($name, $namespace);
-			if (defined($const)) {
-				return constant($const);
-			}
-			if (!$strict) {
-				$const = self::getConstKey($name);
-				if (defined($const)) {
-					return constant($const);
-				}
-			}
-			return $default;
-		}
-
-		static function getConstKey($name, $namespace = NULL)
+		public static function getConstKey($name, $namespace = NULL)
 		{
 			if ($namespace) {
 				$namespace = strtolower($namespace);
@@ -81,22 +56,63 @@
 			return strtoupper($name);
 		}
 
-		static function getRequired()
+		/**
+		 * @param string $name      Config key
+		 * @param null   $namespace namespace default is project name
+		 * @param null   $default   default value if key not found
+		 * @param bool   $strict    disable ignore namespace if key in namespace not found
+		 * @return mixed
+		 */
+		public static function get(string $name, $namespace = NULL, $default = NULL, bool $strict = FALSE)
+		{
+			if (!$namespace && defined('CC_PROJECT_NAME')) {
+				$namespace = CC_PROJECT_NAME;
+			}
+			$const = self::getConstKey($name, $namespace);
+			if (defined($const)) {
+				return constant($const);
+			}
+			if (!$strict) {
+				$const = self::getConstKey($name);
+				if (defined($const)) {
+					return constant($const);
+				}
+			}
+			return $default;
+		}
+
+		public static function getRequired()
 		{
 			global $CC_OPTIONS;
 			return $CC_OPTIONS['required'];
 		}
 
-		static function getAllOptions()
+		public static function getAllOptions()
 		{
 			global $CC_OPTIONS;
 			return array_merge($CC_OPTIONS['required'], $CC_OPTIONS['optional']);
 		}
 
-		static function getOptional()
+		public static function getOptional()
 		{
 			global $CC_OPTIONS;
 			return $CC_OPTIONS['optional'];
 		}
 
+		public static function isSet($name, $namespace = NULL)
+		: bool
+		{
+			if (!$namespace && defined('CC_PROJECT_NAME')) {
+				$namespace = CC_PROJECT_NAME;
+			}
+			$const = self::getConstKey($name, $namespace);
+			if (defined($const)) {
+				return TRUE;
+			}
+			$const = self::getConstKey($name);
+			if (defined($const)) {
+				return TRUE;
+			}
+			return FALSE;
+		}
 	}
