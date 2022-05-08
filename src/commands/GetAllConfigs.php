@@ -36,7 +36,10 @@
 				$extra = $composer->getPackage()->getExtra();
 				$dir   = dirname($composer->getConfig()->get('vendor-dir'));
 				if (array_key_exists('composer-config', $extra) && array_key_exists('configPath', $extra['composer-config'])) {
-					include_once $dir . '/' . $extra['composer-config']['configPath'];
+					$cfg =  $dir . '/' . $extra['composer-config']['configPath'];
+					if(file_exists($cfg)) {
+						include_once $cfg;
+					}
 				}
 			}
 

@@ -20,13 +20,11 @@
 	{
 
 
-		public Composer                     $composer;
+		public Composer $composer;
 		/**
 		 * @var array[]
 		 */
 		public array $options;
-		private AutoloadGeneratorWithConfig $autoloadGeneratorWithConfig;
-		private IOInterface                 $io;
 
 		public static function getSubscribedEvents()
 		{
@@ -42,17 +40,16 @@
 		 */
 		public function activate(Composer $composer, IOInterface $io)
 		{
-			$this->composer                    = $composer;
-			$this->io                          = $io;
-			$this->options                     = [
+			$this->composer              = $composer;
+			$this->options               = [
 				'required' => [],
 				'optional' => [],
 			];
-			$package                           = $composer->getPackage();
-			$extra                             = $package->getExtra();
-			$process                           = new ProcessExecutor($io);
-			$dispatcher                        = new EventDispatcher($composer, $io, $process);
-			$this->autoloadGeneratorWithConfig = new AutoloadGeneratorWithConfig($this, $dispatcher, $this->io);
+			$package                     = $composer->getPackage();
+			$extra                       = $package->getExtra();
+			$process                     = new ProcessExecutor($io);
+			$dispatcher                  = new EventDispatcher($composer, $io, $process);
+			$autoloadGeneratorWithConfig = new AutoloadGeneratorWithConfig($this, $dispatcher, $io);
 
 			$this->getAllConfigs();
 			if (!array_key_exists('composer-config', $extra)) {
@@ -62,9 +59,9 @@
 				if (!array_key_exists('configPath', $extra['composer-config'])) {
 					$extra['composer-config']['configPath'] = $io->ask("Set config path? [enter to skip]");
 				}
-				$this->autoloadGeneratorWithConfig->setConfigPath($extra['composer-config']['configPath']);
+				$autoloadGeneratorWithConfig->setConfigPath($extra['composer-config']['configPath']);
 			}
-			$this->composer->setAutoloadGenerator($this->autoloadGeneratorWithConfig);
+			$this->composer->setAutoloadGenerator($autoloadGeneratorWithConfig);
 			$this->setExtra($extra['composer-config']);
 		}
 
@@ -154,9 +151,8 @@
 		{
 			$process           = new ProcessExecutor($io);
 			$dispatcher        = new EventDispatcher($composer, $io, $process);
-			$autoloadGenerator = new AutoloadGeneratorWithConfig($dispatcher, $this->io);
+			$autoloadGenerator = new AutoloadGeneratorWithConfig($dispatcher, $io);
 			$this->composer->setAutoloadGenerator($autoloadGenerator);
-			$this->setExtra([]);
 		}
 
 		public function INIT(Event $event)
