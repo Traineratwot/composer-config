@@ -14,7 +14,7 @@
 		 * @param null   $clone		User constant name
 		 * @return bool
 		 */
-		public static function set(string $name, string $value, $namespace = NULL, bool $strict = FALSE, $clone = NULL)
+		public static function set(string $name, $value, $namespace = NULL, bool $strict = FALSE, $clone = NULL)
 		: bool
 		{
 			if (!$namespace && defined('CC_PROJECT_NAME')) {
@@ -70,7 +70,6 @@
 		 * @return string
 		 */
 		public static function get(string $name, $namespace = NULL, $default = NULL, bool $strict = FALSE)
-		: string
 		{
 			if (!$namespace && defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
