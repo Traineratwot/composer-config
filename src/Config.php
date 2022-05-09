@@ -11,14 +11,16 @@
 		 * @param mixed  $value     Config value
 		 * @param null   $namespace namespace default is project name
 		 * @param bool   $strict    disable create key without namespace
+		 * @param null   $clone		User constant name
 		 * @return bool
 		 */
-		public static function set(string $name, $value, $namespace = NULL, bool $strict = FALSE, $clone = NULL)
+		public static function set(string $name, string $value, $namespace = NULL, bool $strict = FALSE, $clone = NULL)
+		: bool
 		{
 			if (!$namespace && defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
 			}
-			if($clone && !defined($clone)) {
+			if ($clone && !defined($clone)) {
 				self::$aliases[$clone] = $value;
 				define($clone, $value);
 			}
@@ -65,9 +67,10 @@
 		 * @param null   $namespace namespace default is project name
 		 * @param null   $default   default value if key not found
 		 * @param bool   $strict    disable ignore namespace if key in namespace not found
-		 * @return mixed
+		 * @return string
 		 */
 		public static function get(string $name, $namespace = NULL, $default = NULL, bool $strict = FALSE)
+		: string
 		{
 			if (!$namespace && defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;

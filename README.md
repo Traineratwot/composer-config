@@ -31,6 +31,7 @@ How does it work?
 	- в вашем проекте используйте `Config::get('name','namespace');`
 
 ```json
+//composer.json
 {
 	"type" :"project",
 	"extra":{
@@ -43,6 +44,7 @@ How does it work?
 ```
 
 ```json
+//composer.json
 {
 	"type" :"library",
 	"extra":{
@@ -60,9 +62,11 @@ How does it work?
 
 ```
 
-### config.php
+# config.php
 
 ```php
+<?php
+# config.php
     use Traineratwot\cc\Config;
 
 	Config::set('test1', 'value1');
@@ -76,8 +80,10 @@ How does it work?
 
 ```
 
-### commands
->**getAllConfigs**
+# Commands
+
+### getAllConfigs
+
 > 
 > en
 > 
@@ -91,7 +97,7 @@ How does it work?
 >composer getAllConfigs
 >
 >```
->
+> responce
 >```txt
 > ------------ ----------- ------------------ ---------- --------- 
 >  config key   namespace   description        type       is set?  
@@ -100,3 +106,34 @@ How does it work?
 > ------------ ----------- ------------------ ---------- ---------
 >
 >```
+
+### configUpdate
+
+> 
+> en
+> 
+> creates a special file that will help your IDE determine which constants have been set
+> 
+> ru
+> 
+> создает специальный файл который поможет вашей IDE определить какие константы 
+> были установлены
+>
+>```bash
+>composer configUpdate
+>
+>```
+> responce
+>```txt
+>ok
+>```
+
+### Recommendations/Cоветы
+
+en
+
+I advise you to create a `File Watchers` on the configuration file that would execute the `composer configUpdate` command
+
+ru
+
+Советую создать `File Watchers` на файл конфигурации который бы выполнял команду `composer configUpdate` 
