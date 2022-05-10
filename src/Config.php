@@ -69,7 +69,7 @@
 		 * @param bool   $strict    disable ignore namespace if key in namespace not found
 		 * @return string
 		 */
-		public static function get(string $name, $namespace = NULL, $default = NULL, bool $strict = FALSE)
+		public static function get(string $name, $namespace = NULL, $default = NULL, $strict = FALSE)
 		{
 			if (!$namespace && defined('CC_PROJECT_NAME')) {
 				$namespace = CC_PROJECT_NAME;
