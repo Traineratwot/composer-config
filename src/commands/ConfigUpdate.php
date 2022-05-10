@@ -51,7 +51,7 @@ TXT;
 	
 INC;
 				}
-				file_put_contents($dir . '/vendor/cc.config.inc', $inc);
+				file_put_contents($dir . '/vendor/cc.config.php', $inc);
 				$output->writeln('ok');
 			}
 			return 0;
