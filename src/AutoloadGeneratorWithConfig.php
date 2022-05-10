@@ -26,13 +26,7 @@
 			parent::__construct($eventDispatcher, $io);
 		}
 
-		/**
-		 * @param  string $vendorPathToTargetDirCode
-		 * @param  string $suffix
-		 * @return string
-		 */
-		public function getAutoloadFile(string $vendorPathToTargetDirCode, string $suffix)
-		: string
+		protected function getAutoloadFile(string $vendorPathToTargetDirCode, string $suffix)
 		{
 			$lastChar = $vendorPathToTargetDirCode[strlen($vendorPathToTargetDirCode) - 1];
 			if ("'" === $lastChar || '"' === $lastChar) {
