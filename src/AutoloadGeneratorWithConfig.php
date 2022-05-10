@@ -27,12 +27,12 @@
 		}
 
 		/**
-		 * @param string $vendorPathToTargetDirCode
-		 * @param string $suffix
+		 * @param  string $vendorPathToTargetDirCode
+		 * @param  string $suffix
 		 * @return string
-		 * @throws Exception
 		 */
 		public function getAutoloadFile(string $vendorPathToTargetDirCode, string $suffix)
+		: string
 		{
 			$lastChar = $vendorPathToTargetDirCode[strlen($vendorPathToTargetDirCode) - 1];
 			if ("'" === $lastChar || '"' === $lastChar) {
