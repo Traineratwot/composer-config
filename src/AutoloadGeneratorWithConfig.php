@@ -36,11 +36,8 @@
 			}
 			$config  = '';
 			$options = var_export($this->plugin->options, 1);
-//			$vendorDir = $this->composer->getConfig()->get('vendor-dir');
-//			$cl        = new ClassLoader($vendorDir);
 			if ($this->configPath) {
-				$config = "require_once  __DIR__ .\"/traineratwot/composer-config/src/Config.php\";// include config class \n";
-				$config .= "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\"; // include user config file";
+				$config = "require_once  __DIR__ .\"/" . $this->getConfigPath() . "\"; // include user config file";
 			}
 			$projectName = $this->composer->getPackage()->getName();
 			return <<<AUTOLOAD
@@ -59,12 +56,14 @@ if(!defined('CC_PROJECT_NAME')){
 }
 \$CC_OPTIONS = {$options};
 
-{$config} 
 //End Modified by composer-config
 require_once $vendorPathToTargetDirCode;
+//Start Modified by composer-config
 
-return ComposerAutoloaderInit$suffix::getLoader();
-
+//End Modified by composer-config
+\$ComposerLoader$suffix =  ComposerAutoloaderInit$suffix::getLoader();
+{$config} 
+return \$ComposerLoader$suffix;
 AUTOLOAD;
 		}
 
