@@ -2,7 +2,7 @@
 
 	namespace test;
 
-	use Traineratwot\cc\Config;
+	use Traineratwot\config\Config;
 
 	require "vendor/autoload.php";
 	Config::set('test1', 'value1');

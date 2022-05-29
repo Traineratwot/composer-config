@@ -26,7 +26,8 @@
     },
     "require":{
         "traineratwot/composer-config":"^1.0",
-        "traineratwot/library"        :"^1.0"
+        "traineratwot/library"        :"^1.0",
+        "traineratwot/config": "^1.0"
     },
     "config":{
         "allow-plugins":{
@@ -37,7 +38,6 @@
         "composer-config": {
             "configPath": "src/testConfig.php"
         }
-
     },
     "$schema": "https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json",
     "scripts": {

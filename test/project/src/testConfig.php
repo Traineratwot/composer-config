@@ -1,5 +1,6 @@
 <?php
 
-	use Traineratwot\cc\Config;
 
-	Config::set('test', '897897','lb1');
+	use Traineratwot\config\Config;
+
+	Config::set('test', '897897', 'lb1');

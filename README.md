@@ -67,7 +67,7 @@ How does it work?
 ```php
 <?php
 # config.php
-    use Traineratwot\cc\Config;
+    use Config;
 
 	Config::set('test1', 'value1');
 	Config::set('test1', 'value2','lb1');

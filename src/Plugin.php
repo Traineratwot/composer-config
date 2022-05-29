@@ -15,6 +15,7 @@
 	use Composer\Plugin\PluginInterface;
 	use Composer\Util\ProcessExecutor;
 	use Exception;
+	use Traineratwot\cc\Cli;
 
 	class Plugin implements PluginInterface, EventSubscriberInterface, Capable
 	{
@@ -164,7 +165,7 @@
 		public function getCapabilities()
 		{
 			return [
-				'Composer\Plugin\Capability\CommandProvider' => 'Traineratwot\cc\Cli',
+				'Composer\Plugin\Capability\CommandProvider' => Cli::class,
 			];
 		}
 	}
