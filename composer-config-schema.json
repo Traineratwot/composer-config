@@ -3,6 +3,10 @@
 	"title": "Package",
 	"type": "object",
 	"properties": {
+		"$schema": {
+			"type": "string",
+			"description": "path to JSON sheme"
+		},
 		"name": {
 			"type": "string",
 			"description": "Package name, including 'vendor-name/' prefix.",
