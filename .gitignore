@@ -6,3 +6,4 @@
 composer.phar
 /test/**/vendor
 /test/**/composer.lock
+.project-manager/
