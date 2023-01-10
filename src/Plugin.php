@@ -21,7 +21,10 @@
 	{
 
 
-		public Composer $composer;
+		/**
+		 * @var Composer
+		 */
+		public $composer;
 		/**
 		 * @var array[]
 		 */
