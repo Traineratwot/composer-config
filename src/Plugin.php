@@ -28,7 +28,7 @@
 		/**
 		 * @var array[]
 		 */
-		public array $options;
+		public $options;
 
 		public static function getSubscribedEvents()
 		{
