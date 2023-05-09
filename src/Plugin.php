@@ -66,7 +66,6 @@
 				$autoloadGeneratorWithConfig->setConfigPath($extra['composer-config']['configPath']);
 			}
 			$this->composer->setAutoloadGenerator($autoloadGeneratorWithConfig);
-			$this->setExtra($extra['composer-config']);
 		}
 
 		public function getAllConfigs()
