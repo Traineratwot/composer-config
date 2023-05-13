@@ -30,12 +30,8 @@
 		}
 	},
 	"$schema": "https://raw.githubusercontent.com/Traineratwot/composer-config/master/composer-config-schema.json",
-	"extra"       :{
-		"composer-config":{
-			"namespace":"Lb1",
-			"required":{
-				"test": "test description"
-			}
-		}
+	"scripts": {
+		"composer-config-print": "composer getAllConfigs",
+		"composer-config-update": "composer configUpdate"
 	}
 }

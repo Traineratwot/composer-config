@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd9079e7f96a502adedc96e525b98cce",
+    "content-hash": "29a9934287e4881ff93eb7b72a55a95f",
     "packages": [
         {
             "name": "traineratwot/cache",
@@ -58,15 +58,16 @@
         },
         {
             "name": "traineratwot/composer-config",
-            "version": "1.0.6",
+            "version": "1.2.0",
             "dist": {
                 "type": "path",
                 "url": "../../../composer-config",
-                "reference": "0f085ebc7232a1caedd724480f9f9a1a40e47f73"
+                "reference": "3531b212e742380bb27042b4eb14cc921fb71081"
             },
             "require": {
-                "composer-plugin-api": "^2.3",
-                "php": ">=7.4"
+                "composer-plugin-api": "^2.0",
+                "php": "^7.4||^8.0",
+                "traineratwot/config": "^1.0"
             },
             "require-dev": {
                 "composer/composer": "^2.3",
@@ -86,7 +87,7 @@
             },
             "scripts": {
                 "up:release": [
-                    "gh release create \"1.0.6\" --generate-notes"
+                    "gh release create \"1.2.0\" --generate-notes"
                 ]
             },
             "license": [
@@ -107,6 +108,53 @@
             "transport-options": {
                 "relative": true
             }
+        },
+        {
+            "name": "traineratwot/config",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Traineratwot/config.git",
+                "reference": "20cd8023357dcf7fd37c6996e57fa0e4b426772a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Traineratwot/config/zipball/20cd8023357dcf7fd37c6996e57fa0e4b426772a",
+                "reference": "20cd8023357dcf7fd37c6996e57fa0e4b426772a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4||^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^9.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Traineratwot\\config\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill",
+                    "email": "Traineratwot@yandex.ru"
+                }
+            ],
+            "keywords": [
+                "PSR-4",
+                "composer-plugin",
+                "config"
+            ],
+            "support": {
+                "issues": "https://github.com/Traineratwot/config/issues",
+                "source": "https://github.com/Traineratwot/config/tree/1.0.1"
+            },
+            "time": "2022-05-29T09:16:58+00:00"
         }
     ],
     "packages-dev": [],

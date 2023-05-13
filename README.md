@@ -33,7 +33,7 @@ How does it work?
 ```json
 //composer.json
 {
-	"type" :"project",
+	"type" :"project" //important,
 	"extra":{
 		"composer-config":{
 			"configPath":"src/config.php"
@@ -46,7 +46,7 @@ How does it work?
 ```json
 //composer.json
 {
-	"type" :"library",
+	"type" :"library" //important,
 	"extra":{
 		"composer-config":{
 			"namespace":"lb1",
@@ -61,6 +61,17 @@ How does it work?
 }
 
 ```
+
+----
+Добавить все необходимое в ваш composer.json
+
+Add everything you need to your composer.json
+
+```bash
+	composer InitConfig
+```
+
+----
 
 # config.php
 
@@ -87,13 +98,13 @@ How does it work?
 
 ### getAllConfigs
 
-> 
+>
 > en
-> 
+>
 > Returns all settings that can or should be defined in the project
-> 
+>
 > ru
-> 
+>
 > Возвращякт все настройки которые можно или нужну определить в проэкте
 >
 >```bash
@@ -112,14 +123,14 @@ How does it work?
 
 ### configUpdate
 
-> 
+>
 > en
-> 
+>
 > creates a special file that will help your IDE determine which constants have been set
-> 
+>
 > ru
-> 
-> создает специальный файл который поможет вашей IDE определить какие константы 
+>
+> создает специальный файл который поможет вашей IDE определить какие константы
 > были установлены
 >
 >```bash
